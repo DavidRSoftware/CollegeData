@@ -41,17 +41,17 @@ def write_to_excel():
 		course_name_number_section_pattern = re.compile(b'class="ddtitle">.*?>(.*?) - (.*?) - (.*?)</a></th>')
 		instructor_pattern = re.compile(b'<td class="dddefault">(.*?)(<abbr title="Primary">P</abbr>)')
 		
-		for line in reader:	
+		for line in reader:#applies the regular expression pattern to every line of the text file	
 			search3 = course_name_number_section_pattern.search(line)
 			search1 = instructor_pattern.search(line)
-			if search3:
-				writer.write(search3.group(1) + b', ' + search3.group(2) + b', ' + search3.group(3) + b', ')
-			if search1:
+			if search3:#if the line contains information we are looking for
+				writer.write(search3.group(1) + b', ' + search3.group(2) + b', ' + search3.group(3) + b', ')#we record the information
+			if search1:#if the line contains information we are looking for
 				modify = search1.group(1)
 				start = b'('
 				end = b' '
 				modify = modify.translate(bytes.maketrans(start,end))
-				writer.write(modify + b'\n')
+				writer.write(modify + b'\n')#we record the information
 					
 		print("The file named ",writer.name, "has been written.")
 		reader.close()
